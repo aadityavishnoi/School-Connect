@@ -1,11 +1,11 @@
 import mysql from "mysql2";
 
-const db = mysql.Connection(
+const db = mysql.createConnection(
     {
         host: "localhost",
         user: "root",
         password: "",
-        db: "school-connect",
+        database: "school-connect",
     }
 );
 
