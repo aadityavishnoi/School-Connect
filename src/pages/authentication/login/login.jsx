@@ -8,9 +8,44 @@ function LoginPage() {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-    };
+    const API_URL = import.meta.env.VITE_API_URL;
+
+const onSubmit = async (data) => {
+    try {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data), // ✅ FIXED
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            // ✅ Save token & user
+            localStorage.setItem("token", result.token);
+            localStorage.setItem("user", JSON.stringify(result.user));
+
+            console.log("Login Success ✅");
+
+            // 🔥 Redirect based on role
+            if (result.user.role === "admin") {
+                window.location.href = "/admin";
+            } else if (result.user.role === "teacher") {
+                window.location.href = "/teacher";
+            } else {
+                window.location.href = "/student";
+            }
+        } else {
+            alert(result.message);
+        }
+
+    } catch (error) {
+        console.log("Error:", error);
+        alert("Server error");
+    }
+};
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 font-outfit">
