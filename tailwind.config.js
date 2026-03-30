@@ -4,7 +4,10 @@ module.exports = {
     "./index.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        outfit: ["Outfit", "sans-serif"],
+      },
+    },
   },
-  plugins: [],
-}
+};

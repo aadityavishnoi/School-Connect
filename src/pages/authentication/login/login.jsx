@@ -9,40 +9,70 @@ function LoginPage() {
     } = useForm();
 
     const onSubmit = (data) => {
-        const userData = JSON.parse(localStorage.getItem(data.email));
-        if (userData) {
-            if (userData.password === data.password) {
-                console.log(userData.name + " You Are Successfully Logged In");
-            } else {
-                console.log("Email or Password is not matching with our record");
-            }
-        } else {
-            console.log("Email or Password is not matching with our record");
-        }
+        console.log(data);
     };
 
     return (
-        <>
-            <h2>Login Form</h2>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 font-outfit">
+            <div className="flex w-[900px] bg-white shadow-2xl rounded-2xl overflow-hidden">
+                
+                {/* Left Side (Branding) */}
+                <div className="w-1/2 bg-blue-600 text-white flex flex-col justify-center items-start p-10">
+                    <h1 className="text-3xl font-bold mb-4">School Connect</h1>
+                    <p className="text-start">
+                        Manage your school efficiently with our ERP system.
+                    </p>
+                </div>
 
-            <form className="App" onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    type="email"
-                    {...register("email", { required: true })}
-                    placeholder="Email"
-                />
-                {errors.email && <span style={{ color: "red" }}>*Email* is mandatory</span>}
+                {/* Right Side (Form) */}
+                <div className="w-1/2 p-10">
+                    <h2 className="text-2xl font-semibold mb-6 text-gray-700">
+                        Maharishi Dayanand Inter College
+                    </h2>
 
-                <input
-                    type="password"
-                    {...register("password", { required: true })}
-                    placeholder="Password"
-                />
-                {errors.password && <span style={{ color: "red" }}>*Password* is mandatory</span>}
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        
+                        {/* Email */}
+                        <div>
+                            <input
+                                type="email"
+                                placeholder="Enter Your School Email"
+                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-outfit"
+                                {...register("email", { required: true })}
+                            />
+                            {errors.email && (
+                                <p className="text-red-500 text-sm">
+                                    Email is required
+                                </p>
+                            )}
+                        </div>
 
-                <input type="submit" style={{ backgroundColor: "#a1eafb" }} />
-            </form>
-        </>
+                        {/* Password */}
+                        <div>
+                            <input
+                                type="password"
+                                placeholder="Enter your password"
+                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                {...register("password", { required: true })}
+                            />
+                            {errors.password && (
+                                <p className="text-red-500 text-sm">
+                                    Password is required
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Button */}
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                        >
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     );
 }
 
